@@ -1,0 +1,26 @@
+# Segredos e credenciais: nunca versionar
+*.key
+*.pem
+*.crt
+*.p12
+.env
+.env.*
+*.secret
+*.secret.yaml
+secret*.yaml
+!*.example
+!*.sealed.yaml
+!sealed-*.yaml
+sealed-secrets-key*
+kubeconfig*
+*.kubeconfig
+id_rsa*
+id_ed25519*
+argocd_*
+
+# Arquivos locais
+*.swp
+*.bak
+.DS_Store
+.vscode/
+.idea/
