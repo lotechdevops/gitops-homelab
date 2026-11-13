@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infra
+  namespace: argocd
+spec:
+  description: Infraestrutura do cluster (storage, rede, certificados, observabilidade)
+
+  sourceRepos:
+    - git@github.com:lotechdevops/gitops-homelab.git
+    - https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: nfs-provisioning
+
+  clusterResourceWhitelist:
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+    - group: storage.k8s.io
+      kind: StorageClass
+
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: ''
+      kind: ServiceAccount
+    - group: rbac.authorization.k8s.io
+      kind: Role
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
