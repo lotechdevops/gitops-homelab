@@ -1,0 +1,6 @@
+nfs:
+  path: /nfs/k8s-storage
+  server: 10.10.20.1
+storageClass:
+  defaultClass: false
+  name: nfs-storage

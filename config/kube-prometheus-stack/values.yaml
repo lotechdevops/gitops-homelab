@@ -1,0 +1,79 @@
+alertmanager:
+  alertmanagerSpec:
+    retention: 120h
+    storage:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
+          storageClassName: nfs-storage
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    enabled: true
+    hosts:
+    - alertmanager.devopsr66.com
+    ingressClassName: traefik
+    pathType: Prefix
+    paths:
+    - /
+    tls:
+    - hosts:
+      - alertmanager.devopsr66.com
+      secretName: alertmanager-tls
+grafana:
+  admin:
+    existingSecret: secret-grafana
+    passwordKey: admin-password
+    userKey: admin-user
+  enabled: true
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    enabled: true
+    hosts:
+    - grafana.devopsr66.com
+    ingressClassName: traefik
+    pathType: Prefix
+    paths:
+    - /
+    tls:
+    - hosts:
+      - grafana.devopsr66.com
+      secretName: grafana-tls
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClassName: nfs-storage
+prometheus:
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    enabled: true
+    hosts:
+    - prometheus.devopsr66.com
+    ingressClassName: traefik
+    pathType: Prefix
+    paths:
+    - /
+    tls:
+    - hosts:
+      - prometheus.devopsr66.com
+      secretName: prometheus-tls
+  prometheusSpec:
+    retention: 10d
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 8Gi
+          storageClassName: nfs-storage
