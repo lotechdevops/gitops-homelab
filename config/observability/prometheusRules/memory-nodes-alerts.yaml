@@ -1,0 +1,31 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: memory-nodes-alerts
+  namespace: observabilidade
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: memory-nodes-alerts
+      rules:
+        - alert: HighMemoryUsage
+          annotations:
+            description: "🚨 A instância *{{ $labels.instance }}* está usando {{ printf \"%.2f\" $value }}% da memória disponível!"
+            summary: "Uso de Memória alto na instância {{ $labels.instance }}."
+          expr: |
+            (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 85
+          for: 5m
+          labels:
+            channel: telegram-homelab
+            severity: warning
+        - alert: CriticalMemoryUsage
+          annotations:
+            description: "🚨 A instância *{{ $labels.instance }}* está usando {{ printf \"%.2f\" $value }}% da memória disponível!"
+            summary: "Uso de Memória alto na instância {{ $labels.instance }}."
+          expr: |
+            (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 95
+          for: 2m
+          labels:
+            channel: telegram-homelab
+            severity: critical

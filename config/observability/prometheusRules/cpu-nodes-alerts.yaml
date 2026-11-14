@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cpu-nodes-alerts
+  namespace: observabilidade
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: cpu-nodes-alerts
+      rules:
+        - alert: HighCPUUsage
+          annotations:
+            description: "🚨 A CPU da instância *{{ $labels.instance }}* está em {{ printf \"%.2f\" $value }}% de uso!"
+            resolved_message: "✅ ALERTA RESOLVIDO"
+            summary: "Uso de CPU alto na instância {{ $labels.instance }}."
+          expr: |
+            avg((1 - rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) by (instance, job) > 70
+          for: 5m
+          labels:
+            channel: telegram-homelab
+            severity: warning
+        - alert: CriticalCPUUsage
+          annotations:
+            description: "🚨 A CPU da instância *{{ $labels.instance }}* está em {{ printf \"%.2f\" $value }}% de uso!"
+            resolved_message: "✅ ALERTA RESOLVIDO"
+            summary: "Uso de CPU alto na instância {{ $labels.instance }}."
+          expr: |
+            avg((1 - rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) by (instance, job) > 90
+          for: 2m
+          labels:
+            channel: telegram-homelab
+            severity: critical

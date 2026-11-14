@@ -87,3 +87,5 @@ spec:
       kind: Ingress
     - group: ''
       kind: PersistentVolumeClaim
+    - group: monitoring.coreos.com
+      kind: AlertmanagerConfig
