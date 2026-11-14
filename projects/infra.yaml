@@ -10,6 +10,7 @@ spec:
     - git@github.com:lotechdevops/gitops-homelab.git
     - https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
     - https://charts.jetstack.io
+    - https://traefik.github.io/charts
 
   destinations:
     - server: https://kubernetes.default.svc
@@ -18,6 +19,8 @@ spec:
       namespace: kube-system
     - server: https://kubernetes.default.svc
       namespace: cert-manager
+    - server: https://kubernetes.default.svc
+      namespace: traefik    
 
   clusterResourceWhitelist:
     - group: rbac.authorization.k8s.io
