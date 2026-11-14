@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb
+  namespace: argocd
+spec:
+  project: infra
+  source:
+    repoURL: git@github.com:lotechdevops/gitops-homelab.git
+    targetRevision: main
+    path: config/metallb
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: metallb-system
+  # Campos que o proprio MetalLB gera/rotaciona: o Argo CD nao deve sobrescrever
+  ignoreDifferences:
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      jqPathExpressions:
+        - .spec.conversion.webhook.clientConfig.caBundle
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      jqPathExpressions:
+        - .webhooks[]?.clientConfig.caBundle
+    - kind: Secret
+      name: webhook-server-cert
+      jsonPointers:
+        - /data
+  syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=true
