@@ -90,3 +90,5 @@ spec:
       kind: PersistentVolumeClaim
     - group: monitoring.coreos.com
       kind: AlertmanagerConfig
+    - group: bitnami.com
+      kind: SealedSecret
