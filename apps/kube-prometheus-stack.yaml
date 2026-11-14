@@ -20,5 +20,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: observabilidade
   syncPolicy:
+    automated:
+      selfHeal: true
     syncOptions:
       - ServerSideApply=true
