@@ -1,0 +1,13 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: telegram-bot-token
+  namespace: observabilidade
+spec:
+  encryptedData:
+    token: AgC6QVViaLF4j786feKMrwMqHFVkB/4zh+J+0Oe7mmpoqino1uRRsvX5CdhdDB63cyTE8ZlW7Gf36tFtn59aIbxN59CODREB94q4/7EGWIY/ruhW2FMGtGf2Gtw6XOM0FiaAFR/WNbPLTcnqWDTjxVKvszlf2ozFS6cr1+0otl31hniDCvTNpUsbzWtTBnmpWHJf5aq7+TotnqBamZWUca14Egn0jxctxAleeObBUfVLStgX00sW/oErQheB++Yq2p1oYfzSSXScLXs7fazV6wS382HD3jD6+F81IqbTPgl+fy3OMlPChrwNmcoVPZNWpmg1ScQ5ZrDPf0Fh8VGg03GlxvrZNVZBfJeFBNYtrhgj3JkK5eHXNor5XvTd53PKkOAySGXcmLk6cGgjuuKKUM8lByoRdnYD9Ps8YFXl4yPovYNU2LlyhvfWSL5/GGLeTHhU5OpuSb6e6aE4WfT9b1c779kacRdqHV9lzlKbD+MkL3RXKrSVGU47Q8Nc3UvDew88c8tOo6rnvOamyubHXFuH9q+2g5Iyb0GQCYfpA8GNhhkXnzugpJYMC49u/n6Z0+82bTYyRSxNmm908ZYfhLGkqWvAU+dafcqv5p/H1kTmrgamQRkRz3sOgp/v/zBAzwNdMfDJQyknw3I4p1ZG8D5K7cBm03LhcLlW8+EAyrqZ1ob0Pg3zAV5q2m5B1bOknFDofbHeUPzyJd/N9oRa/AU7gb1XdlOz1KWg9bfIc2mhaqhAfR9z1V2KZtOjYBOs
+  template:
+    metadata:
+      name: telegram-bot-token
+      namespace: observabilidade
