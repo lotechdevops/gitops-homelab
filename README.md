@@ -93,14 +93,6 @@ Fora do Git de propósito: a credencial SSH que o Argo CD usa para ler este repo
 
 6. O Argo CD instala tudo e os Secrets são abertos pelo controller.
 
-## Próximos passos
-
-- [ ] **Application raiz** (app-of-apps): um único `kubectl apply` para subir tudo.
-- [ ] Adotar o **`cloudflared`** (túnel do Cloudflare), com o token como SealedSecret.
-- [ ] O Argo CD **gerenciando a si mesmo**.
-- [ ] Atualizar o MetalLB (hoje v0.14.3) em commit separado.
-- [ ] `gitops-cloud`: o mesmo padrão em um cluster na nuvem.
-
 ## Documentação
 
 Os conceitos e o passo a passo de Argo CD que usei para aprender estão no meu blog: <https://devopsr66.com>.
