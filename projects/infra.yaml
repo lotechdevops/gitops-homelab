@@ -9,10 +9,13 @@ spec:
   sourceRepos:
     - git@github.com:lotechdevops/gitops-homelab.git
     - https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+    - https://charts.jetstack.io
 
   destinations:
     - server: https://kubernetes.default.svc
       namespace: nfs-provisioning
+    - server: https://kubernetes.default.svc
+      namespace: kube-system
 
   clusterResourceWhitelist:
     - group: rbac.authorization.k8s.io
@@ -21,6 +24,9 @@ spec:
       kind: ClusterRoleBinding
     - group: storage.k8s.io
       kind: StorageClass
+    - {group: apiextensions.k8s.io, kind: CustomResourceDefinition}
+    - {group: admissionregistration.k8s.io, kind: ValidatingWebhookConfiguration}
+    - {group: admissionregistration.k8s.io, kind: MutatingWebhookConfiguration}
 
   namespaceResourceWhitelist:
     - group: apps
@@ -31,3 +37,9 @@ spec:
       kind: Role
     - group: rbac.authorization.k8s.io
       kind: RoleBinding
+    - group: ''
+      kind: Service
+    - group: ''
+      kind: ConfigMap
+    - group: batch 
+      kind: Job
